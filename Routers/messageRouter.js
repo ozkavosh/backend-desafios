@@ -5,8 +5,7 @@ import MessageService from "../Services/MessageService.js";
 import MessageRepository from "../Repositories/MessageRepository.js";
 
 const messageRouter = Router();
-const messageRepository = new MessageRepository();
-const messageService = new MessageService(messageRepository);
+const messageService = new MessageService(MessageRepository.getInstance());
 const messageController = new MessageController(messageService);
 
 messageRouter.get("/", routeLogger, messageController.getMessageRow);

@@ -4,8 +4,7 @@ import ProductController from "../Controllers/ProductController.js";
 import ProductService from "../Services/ProductService.js";
 import ProductRepository from "../Repositories/ProductRepository.js";
 
-const productRepository = new ProductRepository();
-const productService = new ProductService(productRepository);
+const productService = new ProductService(ProductRepository.getInstance());
 const productController = new ProductController(productService);
 const productRouter = Router();
 

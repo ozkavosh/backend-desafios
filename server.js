@@ -9,7 +9,8 @@ const mode = argv.mode || argv.MODE || argv.modo || argv.MODO || "FORK";
 
 //MongoDb
 mongoose.connect(
-  `mongodb+srv://ozkavosh:${process.env.MONGO_PASS}@cluster0.y6plr.mongodb.net/users?retryWrites=true&w=majority`
+  `mongodb://127.0.0.1:27017/users?retryWrites=true&w=majority`,
+  () => console.log("Conectado a mongo")
 );
 
 if (cluster.isPrimary && mode == "CLUSTER") {

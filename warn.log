@@ -18,3 +18,9 @@
 [2022-09-07T13:11:24.130] [WARN] default - /productos method GET not yet implemented
 [2022-09-07T13:14:42.918] [WARN] default - /mensajes method GET not yet implemented
 [2022-09-07T13:14:43.308] [WARN] default - /productos method GET not yet implemented
+[2022-09-13T01:58:06.534] [WARN] default - /favicon.ico method GET not yet implemented
+[2022-09-13T11:35:49.721] [WARN] default - /favicon.ico method GET not yet implemented
+[2022-09-14T02:22:39.819] [WARN] default - /favicon.ico method GET not yet implemented
+[2022-09-14T02:45:00.154] [WARN] default - /undefined method GET not yet implemented
+[2022-09-14T02:45:09.529] [WARN] default - /undefined method GET not yet implemented
+[2022-09-14T02:45:35.866] [WARN] default - /undefined method GET not yet implemented
