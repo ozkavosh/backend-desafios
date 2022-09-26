@@ -24,3 +24,5 @@
 [2022-09-14T02:45:00.154] [WARN] default - /undefined method GET not yet implemented
 [2022-09-14T02:45:09.529] [WARN] default - /undefined method GET not yet implemented
 [2022-09-14T02:45:35.866] [WARN] default - /undefined method GET not yet implemented
+[2022-09-26T12:52:31.747] [WARN] default - /api/products method GET not yet implemented
+[2022-09-26T12:53:14.525] [WARN] default - /api/products method GET not yet implemented

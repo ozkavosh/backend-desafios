@@ -58,5 +58,21 @@
         "price": "957.00",
         "thumbnail": "https://loremflickr.com/640/480/animals",
         "id": 10
+    },
+    {
+        "title": "Generic Product",
+        "price": "205.00",
+        "thumbnail": "https://loremflickr.com/640/480/animals",
+        "id": 11
+    },
+    {
+        "price": "203.00",
+        "id": 12
+    },
+    {
+        "title": "Handcrafted Plastic Gloves",
+        "price": "309.00",
+        "thumbnail": "https://loremflickr.com/640/480/abstract",
+        "id": 13
     }
 ]

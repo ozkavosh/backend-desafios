@@ -14,3 +14,12 @@ export default () => {
 
   return productos;
 };
+
+export const producto = () => {
+  return {
+    title: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    thumbnail:
+      faker.image.abstract()
+  }
+}

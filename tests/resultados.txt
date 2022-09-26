@@ -1,0 +1,19 @@
+
+> test
+> mocha tests/apitest.test.js
+
+
+
+  Test products api
+    GET
+      ✔ should return all products
+    POST
+      ✔ should add a product to the list
+    PUT
+      ✔ should edit a product from the list
+    DELETE
+      ✔ should remove a product from the list
+
+
+  4 passing (47ms)
+
