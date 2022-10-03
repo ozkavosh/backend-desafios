@@ -6,6 +6,7 @@ import productRouter from "./Routers/productRouter.js";
 import messageRouter from "./Routers/messageRouter.js";
 import infoRouter from "./Routers/infoRouter.js";
 import randomRouter from "./Routers/randomRouter.js";
+import graphqlController from "./Controllers/graphqlController.js";
 import session from "express-session";
 import passport from "./utils/passport.js";
 import MongoStore from "connect-mongo";
@@ -48,6 +49,7 @@ app.use("/productos", productRouter);
 app.use("/mensajes", messageRouter);
 app.use(infoRouter);
 app.use(randomRouter);
+app.use('/graphql', graphqlController)
 app.use(invalidRouteLogger, (req, res, next) => {
   res
     .status(404)
