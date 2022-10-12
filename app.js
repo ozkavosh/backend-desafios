@@ -1,4 +1,4 @@
-import express from "express";
+import Koa from 'koa';
 import { Server as IOServer } from "socket.io";
 import { Server as HTTPServer } from "http";
 import accountRouter from "./Routers/accountRouter.js";
@@ -6,41 +6,34 @@ import productRouter from "./Routers/productRouter.js";
 import messageRouter from "./Routers/messageRouter.js";
 import infoRouter from "./Routers/infoRouter.js";
 import randomRouter from "./Routers/randomRouter.js";
-import graphqlController from "./Controllers/graphqlController.js";
-import session from "express-session";
+import mongoose from "mongoose";
+import session from "koa-session";
+import bodyParser from "koa-bodyparser";
+import flash from "koa-flash";
+import MongoStore from "koa-session-mongoose";
+import useStatic from "koa-static";
 import passport from "./utils/passport.js";
-import MongoStore from "connect-mongo";
 import dotenv from "dotenv";
-import flash from "connect-flash";
 import { invalidRouteLogger } from "./middlewares/routeLogger.js";
 import { getConnection } from "./Controllers/websocketController.js";
 
-const app = express();
-dotenv.config();
-app.use(flash());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(
-  session({
-    store: MongoStore.create({
-      mongoUrl: `mongodb://127.0.0.1:27017/desafio-sessions?retryWrites=true&w=majority`,
-      mongoOptions: {
-        useNewUrlParser: true,
-      },
-    }),
-    secret: "qwerty",
-    rolling: true,
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 600 * 1000,
-    },
-  })
+//MongoDb
+mongoose.connect(
+  `mongodb://127.0.0.1:27017/users?retryWrites=true&w=majority`,
+  () => console.log("Conectado a mongo")
 );
+
+dotenv.config();
+
+const app = new Koa();
+app.keys = ["asd"];
+app.use(bodyParser());
+app.use(session({ store: new MongoStore() }, app));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static("public"));
+app.use(useStatic("/public", {}));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
@@ -49,7 +42,6 @@ app.use("/productos", productRouter);
 app.use("/mensajes", messageRouter);
 app.use(infoRouter);
 app.use(randomRouter);
-app.use('/graphql', graphqlController)
 app.use(invalidRouteLogger, (req, res, next) => {
   res
     .status(404)
