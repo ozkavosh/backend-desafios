@@ -5,10 +5,10 @@ export default class RandomNumberController{
         this.service = service;
     }
 
-    getRandomNumber(req,res){
+    getRandomNumber(ctx){
         try{
-            const result = this.service.calcular(req.query.cant || 10000);
-            res.type('json').send(JSON.stringify(result,null,2));
+            const result = this.service.calcular(ctx.request.query.cant || 10000);
+            ctx.body = { result };
         }
         catch(e){
             logger.error(e.message)

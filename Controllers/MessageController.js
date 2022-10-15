@@ -5,9 +5,9 @@ export default class MessageController {
     this.service = service;
   }
 
-  getMessageRow(req, res) {
+  async getMessageRow(ctx) {
     try {
-      res.render("partials/messageRow", {});
+      await ctx.render("partials/messageRow", {});
     } catch (err) {
       logger.error(err.message);
     }

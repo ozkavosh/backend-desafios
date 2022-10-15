@@ -2,10 +2,9 @@ import logger from "../utils/logger.js";
 import { cpus } from "os";
 
 export default class InfoController {
-  getInfo(req, res) {
+  getInfo(ctx) {
     try {
-      res.type("json").send(
-        JSON.stringify(
+      ctx.body =
           {
             argumentos: process.argv.slice(2),
             plataforma: process.platform,
@@ -15,11 +14,7 @@ export default class InfoController {
             pid: process.pid,
             carpeta: process.cwd(),
             numProcesadores: cpus().length,
-          },
-          null,
-          2
-        )
-      );
+          }
     } catch (e) {
       logger.error(e.message);
     }

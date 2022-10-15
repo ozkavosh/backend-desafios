@@ -16,4 +16,6 @@ if (cluster.isPrimary && mode == "CLUSTER") {
       `Servidor listo y escuchando en el puerto ${server.address().port} Modo: ${mode}`
     );
   });
+
+  server.on('error', (e) => console.log(e));
 }

@@ -1,11 +1,12 @@
-import { Router } from "express";
-import compression from "compression";
+import Router from "koa-router";
 import { routeLogger } from "../middlewares/routeLogger.js";
 import InfoController from "../Controllers/InfoController.js";
 
-const infoRouter = Router();
+const infoRouter = new Router({
+    prefix: '/info'
+});
 const infoController = new InfoController();
 
-infoRouter.get("/info", routeLogger, compression(), infoController.getInfo);
+infoRouter.get("/", routeLogger, infoController.getInfo);
 
 export default infoRouter;

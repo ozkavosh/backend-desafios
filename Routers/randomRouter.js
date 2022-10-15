@@ -1,12 +1,14 @@
-import { Router } from "express";
+import Router from "koa-router";
 import {routeLogger} from "../middlewares/routeLogger.js";
 import RandomNumberController from "../Controllers/RandomNumberController.js";
 import RandomNumberService from "../services/RandomNumberService.js";
 
-const routerRandom = Router();
+const routerRandom = new Router({
+    prefix: '/random'
+});
 const randomNumberService = new RandomNumberService();
 const randomNumberController = new RandomNumberController(randomNumberService);
 
-routerRandom.get('/random', routeLogger, randomNumberController.getRandomNumber);
+routerRandom.get('/', routeLogger, randomNumberController.getRandomNumber.bind(randomNumberController));
 
 export default routerRandom;

@@ -1,10 +1,12 @@
-import { Router } from "express";
+import Router from "koa-router";
 import passport from "../utils/passport.js";
 import authRoute from "../middlewares/authRoute.js";
 import { routeLogger } from "../middlewares/routeLogger.js";
 import AccountController from "../Controllers/AccountController.js";
 
-const accountRouter = Router();
+const accountRouter = new Router({
+  prefix: "",
+});
 const accountController = new AccountController();
 
 accountRouter.get("/", routeLogger, authRoute, accountController.getIndex);
@@ -14,10 +16,12 @@ accountRouter.get("/login", routeLogger, accountController.getLogin);
 accountRouter.post(
   "/login",
   routeLogger,
-  passport.authenticate("login", {
-    failureRedirect: "/login",
-    failureFlash: true,
-  }),
+  async (ctx, next) => {
+    return passport.authenticate(
+      "login",
+      { failureRedirect: "/login", failureFlash: true }
+    )(ctx, next);
+  },
   accountController.postLogin
 );
 
@@ -26,10 +30,12 @@ accountRouter.get("/signup", routeLogger, accountController.getSignUp);
 accountRouter.post(
   "/signup",
   routeLogger,
-  passport.authenticate("signup", {
-    failureRedirect: "/signup",
-    failureFlash: true,
-  }),
+  async (ctx, next) => {
+    return passport.authenticate(
+      "signup",
+      { failureRedirect: "/signup", failureFlash: true }
+    )(ctx, next);
+  },
   accountController.postSignUp
 );
 

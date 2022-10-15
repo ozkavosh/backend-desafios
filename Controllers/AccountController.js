@@ -1,32 +1,32 @@
 export default class AccountController {
-  getIndex(req, res) {
-    res.render("layouts/index", { nombre: req.user.username });
+  async getIndex(ctx) {
+    await ctx.render("layouts/index", { nombre: ctx.state.user.username });
   }
 
-  getLogin(req, res) {
-    if (req.isUnauthenticated()) {
-      res.render("layouts/login", { error: req.flash("error")[0] });
+  async getLogin(ctx) {
+    if (ctx.isUnauthenticated()) {
+      await ctx.render("layouts/login", { error: ctx.flash('error')[0] });
     } else {
-      res.redirect("/");
+      ctx.redirect("/");
     }
   }
 
-  postLogin(req, res) {
-    res.redirect("/");
+  postLogin(ctx) {
+    ctx.redirect("/");
   }
 
-  getSignUp(req, res) {
-    res.render("layouts/signup", { error: req.flash("error")[0] });
+  async getSignUp(ctx) {
+    await ctx.render("layouts/signup", { error: ctx.flash('error')[0] });
   }
 
-  postSignUp(req, res) {
-    res.redirect("/login");
+  postSignUp(ctx) {
+    ctx.redirect("/login");
   }
 
-  getLogout(req, res) {
-    req.logout({ keepSessionInfo: false }, (err) => {
+  getLogout(ctx) {
+    ctx.logout({ keepSessionInfo: false }, (err) => {
       if (err) console.log(err);
-      res.redirect("/login");
+      ctx.redirect("/login");
     });
   }
 }

@@ -11,7 +11,7 @@ passport.use(
 
       if (!user) {
         return done(null, false, {
-          message: `No se encontro el usuario ${username}`,
+          message: `No se encontró el usuario ${username}`,
         });
       }
 
@@ -30,7 +30,7 @@ passport.use(
     {
       passReqToCallback: true
     },
-    (req, username, password, done) => {
+    (ctx, username, password, done) => {
       User.findOne({ username }, (err, user) => {
         if (err) {
           console.log("Error en signup", err);

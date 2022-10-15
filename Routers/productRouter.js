@@ -1,12 +1,14 @@
-import { Router } from "express";
+import Router from "koa-router";
 import { routeLogger } from "../middlewares/routeLogger.js";
 import ProductController from "../Controllers/ProductController.js";
 import ProductService from "../Services/ProductService.js";
 import ProductRepository from "../Repositories/ProductRepository.js";
 
+const productRouter = new Router({
+    prefix: "/productos",
+});
 const productService = new ProductService(ProductRepository.getInstance());
 const productController = new ProductController(productService);
-const productRouter = Router();
 
 productRouter.get("/", routeLogger, productController.getProductRow);
 productRouter.get("/api", routeLogger, productController.getProducts.bind(productController));

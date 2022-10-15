@@ -6,64 +6,72 @@ export default class ProductController {
     this.service = service;
   }
 
-  getProductRow(req, res) {
+  async getProductRow(ctx) {
     try {
-      res.render("partials/productRow", {});
+      await ctx.render("partials/productRow", {});
     } catch (err) {
       logger.error(err.message);
+      ctx.response.status = 505;
+      ctx.body = { error: err.message };
     }
   }
 
-  getProductTest(req, res) {
+  getProductTest(ctx) {
     try {
         const productos = crearDatos();
-        res.type("json").send(JSON.stringify(productos, null, 4));
+        ctx.body = productos;
       } catch (err) {
         logger.error(err.message);
+        ctx.response.status = 505;
+        ctx.body = { error: err.message };
       }
   }
 
-  async getProducts(req, res) {
+  async getProducts(ctx) {
     try{
       const products = await this.service.getAll();
-      res.json(products || { success: true });
+      ctx.body = products;
     }catch (err) {
       console.log(err.message);
-      res.status(500).json({ error: err.message });
+      ctx.response.status = 505;
+      ctx.body = { error: err.message };
     }
   }
 
-  async postProduct(req, res) {
+  async postProduct(ctx) {
     try{
-      const product = req.body;
+      const product = ctx.request.body;
       const response = await this.service.save(product);
-      res.json(response || { success: true });
+      ctx.body = response || { success: true };
     }catch (err) {
       console.log(err.message);
-      res.status(500).json({ error: err.message });
+      ctx.response.status = 505;
+      ctx.body = { error: err.message };
     }
   }
 
-  async updateProduct(req, res) {
+  async updateProduct(ctx) {
     try{
-      const product_id = req.params.id;
-      const product = req.body;
+      const product_id = ctx.request.params.id;
+      const product = ctx.request.body;
       const response = await this.service.update(product, product_id);
-      res.json(response || { success: true });
+      ctx.body = response || { success: true };
     }catch (err) {
       console.log(err.message);
-      res.status(500).json({ error: err.message });
+      ctx.response.status = 505;
+      ctx.body = { error: err.message };
     }
   }
 
-  async deleteProduct(req, res) {
+  async deleteProduct(ctx) {
     try{
-      const product_id = req.params.id;
+      const product_id = ctx.request.params.id;
       const response = await this.service.deleteById(product_id);
-      res.json(response || { success: true });
+      ctx.body = response || { success: true };
     }catch (err) {
       console.log(err.message);
-      res.status(500).json({ error: err.message });
+      ctx.response.status = 505;
+      ctx.body = { error: err.message };
     }
   }
 }

@@ -1,13 +1,16 @@
 import logger from "../utils/logger.js";
 
-export const routeLogger = (req, res, next) => {
-  logger.info(`${req.baseUrl}${req.path} method ${req.method}`);
-  return next();
+export const routeLogger = async (ctx, next) => {
+  logger.info(`${ctx.request.URL} method ${ctx.request.method}`);
+  return await next();
 };
 
-export const invalidRouteLogger = (req, res, next) => {
+export const invalidRouteLogger = async (ctx, next) => {
   logger.warn(
-    `${req.baseUrl}${req.path} method ${req.method} not yet implemented`
+    `${ctx.request.URL} method ${ctx.request.method} not yet implemented`
   );
-  return next();
+  ctx.body = {
+    error: `${ctx.request.URL} method ${ctx.request.method} not yet implemented`,
+  };
+  ctx.response.status = 404;
 };
